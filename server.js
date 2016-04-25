@@ -8,16 +8,12 @@ var botConnectorOptions = {
 };
 
 // Create bot
-var bot = new builder.BotConnectorBot(botConnectorOptions);
-bot.add('/', function (session) {
-    if (!session.userData.poll) {
-        session.beginDialog('/poll');
-    } else {
-        session.send("There is a poll going on, it seems.");
-    }
-});
+var dialog = new builder.CommandDialog();
 
-bot.add('/poll', [
+var bot = new builder.BotConnectorBot(botConnectorOptions);
+bot.add('/', dialog);
+
+dialog.matches('^poll', [
     function(session) {
         builder.Prompts.text(session, 'What are you trying to decide?');
     },
@@ -32,7 +28,7 @@ bot.add('/poll', [
     }
 ]);
 
-bot.add('/option', [
+dialog.matches('^option', [
     function(session) {
         builder.Prompts.text(session, 'Please enter option');
     },
@@ -45,7 +41,7 @@ bot.add('/option', [
     }
 ]);
 
-bot.add('/vote', [
+dialog.matches('^vote', [
     function(session) {
         builder.Prompts.choice(session, session.userData.poll.topic, session.userData.poll.options);
     },
