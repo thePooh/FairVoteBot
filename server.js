@@ -13,7 +13,7 @@ var dialog = new builder.CommandDialog();
 var bot = new builder.BotConnectorBot(botConnectorOptions);
 bot.add('/', dialog);
 
-dialog.matches('^poll', [
+dialog.matches('poll', [
     function(session) {
         builder.Prompts.text(session, 'What are you trying to decide?');
     },
@@ -28,7 +28,7 @@ dialog.matches('^poll', [
     }
 ]);
 
-dialog.matches('^option', [
+dialog.matches('option', [
     function(session) {
         builder.Prompts.text(session, 'Please enter option');
     },
@@ -41,7 +41,7 @@ dialog.matches('^option', [
     }
 ]);
 
-dialog.matches('^vote', [
+dialog.matches('vote', [
     function(session) {
         builder.Prompts.choice(session, session.userData.poll.topic, session.userData.poll.options);
     },
@@ -52,7 +52,7 @@ dialog.matches('^vote', [
     }
 ]);
 
-bot.add('/finish', function(session) {
+dialog.matches('finish', function(session) {
     var poll = session.userData.poll;
     var response = poll.topic+"\n";
     for (var i = 0; i<poll.options.length; i++) {
