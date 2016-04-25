@@ -56,7 +56,7 @@ dialog.matches('finish', function(session) {
     var poll = session.userData.poll;
     var response = poll.topic+"\n";
     for (var i = 0; i<poll.options.length; i++) {
-        response += i+". "+poll.options[i]+" – "+poll.votes[poll.options[i]];
+        response += i+". "+poll.options[i]+" – "+poll.votes[poll.options[i]]+"\n";
     }
     session.send(response);
     session.userData.poll = null;
