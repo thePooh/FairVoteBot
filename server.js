@@ -23,9 +23,9 @@ bot.add('/poll', [
     },
     function(session, results) {
         session.userData.poll = {
-            topic = results.response,
-            options = [],
-            votes = {},
+            topic: results.response,
+            options: [],
+            votes: {},
         }
         session.send('Okay, starting your "'+results.response+'" poll.')
         session.endDialog();
